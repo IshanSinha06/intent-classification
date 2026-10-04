@@ -70,7 +70,7 @@ The transformer's net improvement over the baseline is just **6 examples** — t
 ### Setup
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/IshanSinha06/intent-classification.git
 cd intent-classification
 python -m venv venv
 source venv/bin/activate   # On Windows: venv\Scripts\activate
