@@ -277,8 +277,12 @@ def learning_curve_experiment():
 
     For each data fraction:
       - Trains TF-IDF + LogReg baseline (from src/baseline.py).
-      - Trains DistilBERT (from src/finetune.py) for 3 epochs (faster for partial data).
+      - Trains DistilBERT (from src/finetune.py) with a fair training budget.
       - Evaluates both on the full validation set.
+
+    Training budget: epochs are scaled so each fraction gets roughly the same
+    total number of gradient steps as the full-data run (5 epochs × full batches).
+    This ensures the learning curve measures data efficiency, not training budget.
 
     Results are saved to:
       - results/learning_curve.json — metrics at each fraction.
@@ -289,10 +293,16 @@ def learning_curve_experiment():
     """
     # Import here to avoid circular imports — these modules also import from data.py.
     from baseline import train_baseline, evaluate
-    from finetune import train_and_evaluate as finetune_train
+    from finetune import train_and_evaluate as finetune_train, DEFAULT_BATCH_SIZE, DEFAULT_EPOCHS
 
     fractions = [0.10, 0.25, 0.50, 1.0]
     results = []
+
+    # Compute the reference step count from the full-data run.
+    full_splits = get_splits()
+    full_train_size = len(full_splits["train_texts"])
+    full_batches_per_epoch = (full_train_size + DEFAULT_BATCH_SIZE - 1) // DEFAULT_BATCH_SIZE
+    reference_steps = full_batches_per_epoch * DEFAULT_EPOCHS
 
     for frac in fractions:
         print(f"\n{'=' * 50}")
@@ -301,27 +311,35 @@ def learning_curve_experiment():
 
         splits = get_partial_splits(fraction=frac)
         train_size = len(splits["train_texts"])
-        print(f"  Training on {train_size} examples")
+
+        # Scale epochs to match the full run's total gradient steps.
+        batches_per_epoch = max(1, (train_size + DEFAULT_BATCH_SIZE - 1) // DEFAULT_BATCH_SIZE)
+        scaled_epochs = max(DEFAULT_EPOCHS, round(reference_steps / batches_per_epoch))
+        print(f"  Training on {train_size} examples ({scaled_epochs} epochs to match step budget)")
 
         # --- Baseline ---
         print("  Training baseline...")
         pipeline = train_baseline(splits["train_texts"], splits["train_labels"])
         bl_metrics = evaluate(pipeline, splits["val_texts"], splits["val_labels"])
 
-        # --- Transformer (fewer epochs for speed on partial data) ---
+        # --- Transformer (scaled epochs for a fair comparison) ---
         print("  Training DistilBERT...")
         ft_result = finetune_train(
-            splits, seed=RANDOM_SEED, epochs=3,
+            splits, seed=RANDOM_SEED, epochs=scaled_epochs,
             evaluate_test=False,
         )
+
+        # Extract the best validation metrics from the epoch logs.
+        best_log = max(ft_result["epoch_logs"], key=lambda e: e["val_macro_f1"])
 
         entry = {
             "fraction": frac,
             "train_size": train_size,
+            "epochs": scaled_epochs,
             "baseline_val_accuracy": round(bl_metrics["accuracy"], 4),
             "baseline_val_macro_f1": round(bl_metrics["macro_f1"], 4),
-            "transformer_val_accuracy": round(ft_result.get("best_val_f1", 0), 4),
-            "transformer_val_macro_f1": round(ft_result.get("best_val_f1", 0), 4),
+            "transformer_val_accuracy": round(best_log["val_accuracy"], 4),
+            "transformer_val_macro_f1": round(best_log["val_macro_f1"], 4),
         }
         results.append(entry)
         print(f"  Baseline val F1:     {entry['baseline_val_macro_f1']:.4f}")

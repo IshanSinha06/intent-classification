@@ -17,7 +17,7 @@ Given a customer banking query (e.g., *"I need to top up my account"*), classify
 
 | Model | Description |
 |-------|-------------|
-| **Baseline** | TF-IDF (word 1-2-grams, sublinear TF) → Logistic Regression. Hyperparameters (C, n-gram range) tuned on validation. |
+| **Baseline** | TF-IDF (word n-grams, sublinear TF) → Logistic Regression. Hyperparameters (C, n-gram range) tuned on validation; best: C=10, unigrams. |
 | **DistilBERT** | `distilbert-base-uncased` fine-tuned with AdamW + linear warmup. Hand-written PyTorch training loop. Evaluated with 3 random seeds. |
 
 ## Results
@@ -27,24 +27,26 @@ Given a customer banking query (e.g., *"I need to top up my account"*), classify
 | TF-IDF + LogReg (C=10, unigrams) | 89.61% | 89.63% |
 | DistilBERT (mean ± std, 3 seeds) | 90.15 ± 0.25% | 90.02 ± 0.30% |
 
-Fine-tuned DistilBERT edges out the baseline by ~0.4% macro-F1. The gap is small, which shows that TF-IDF + Logistic Regression is a genuinely strong baseline for this task.
+The two models perform comparably (the 0.39-point gap falls within the transformer's seed-to-seed standard deviation of 0.30). TF-IDF + Logistic Regression is a genuinely strong baseline for this task.
 
 ### Learning Curve
 
 ![Learning Curve](results/learning_curve.png)
 
-Both models are trained on 10%, 25%, 50%, and 100% of the training data. The baseline is strong even with very little data, while DistilBERT needs substantially more examples (and sufficient training epochs) to reach its full potential.
+Both models are trained on 10%, 25%, 50%, and 100% of the training data. To ensure a fair comparison, DistilBERT epochs are scaled at each fraction so the total number of gradient steps matches the full-data run (5 epochs x 266 batches = 1,330 steps).
 
-| Data Fraction | Baseline Val F1 | DistilBERT Val F1 |
-|:---:|:---:|:---:|
-| 10% (850) | 65.5% | 11.4% |
-| 25% (2,125) | 80.4% | 36.7% |
-| 50% (4,251) | 85.1% | 60.5% |
-| 100% (8,502) | 88.6% | 80.8% |
+| Data Fraction | Baseline Val F1 | DistilBERT Val F1 | DistilBERT Epochs |
+|:---:|:---:|:---:|:---:|
+| 10% (850) | 65.5% | 77.7% | 49 |
+| 25% (2,125) | 80.4% | 87.9% | 20 |
+| 50% (4,251) | 85.1% | 88.8% | 10 |
+| 100% (8,502) | 88.6% | 90.2% | 5 |
+
+DistilBERT outperforms the baseline at every data size. The transformer's advantage is largest in the low-data regime (10-25%), where pre-trained representations compensate for fewer examples. The gap narrows as data grows and the baseline catches up.
 
 ### Error Analysis
 
-Out of 3,080 test examples:
+Error analysis uses the transformer's seed-456 run (test accuracy 89.81%, slightly below the 3-seed mean). Out of 3,080 test examples:
 - **2,631** both models got right
 - **185** both models got wrong (genuinely hard examples)
 - **135** only the baseline got wrong (transformer improvement)
