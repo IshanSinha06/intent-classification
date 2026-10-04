@@ -55,7 +55,6 @@ def create_baseline_pipeline(C=10.0, ngram_range=(1, 2)):
             C=C,
             random_state=RANDOM_SEED,
             solver="lbfgs",
-            multi_class="multinomial",
         ),
     )
 

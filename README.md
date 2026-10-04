@@ -22,27 +22,35 @@ Given a customer banking query (e.g., *"I need to top up my account"*), classify
 
 ## Results
 
-*Fill in after running the experiments.*
-
 | Model | Test Accuracy | Test Macro-F1 |
 |-------|:---:|:---:|
-| TF-IDF + LogReg | [X%] | [Y%] |
-| DistilBERT (mean ± std, 3 seeds) | [X ± σ%] | [Y ± σ%] |
+| TF-IDF + LogReg (C=10, unigrams) | 89.61% | 89.63% |
+| DistilBERT (mean ± std, 3 seeds) | 90.15 ± 0.25% | 90.02 ± 0.30% |
+
+Fine-tuned DistilBERT edges out the baseline by ~0.4% macro-F1. The gap is small, which shows that TF-IDF + Logistic Regression is a genuinely strong baseline for this task.
 
 ### Learning Curve
 
-*Plot saved to `results/learning_curve.png` after running `python src/analyze.py`.*
+![Learning Curve](results/learning_curve.png)
 
-Both models are trained on 10%, 25%, 50%, and 100% of the training data to show when the transformer's advantage appears.
+Both models are trained on 10%, 25%, 50%, and 100% of the training data. The baseline is strong even with very little data, while DistilBERT needs substantially more examples (and sufficient training epochs) to reach its full potential.
+
+| Data Fraction | Baseline Val F1 | DistilBERT Val F1 |
+|:---:|:---:|:---:|
+| 10% (850) | 65.5% | 11.4% |
+| 25% (2,125) | 80.4% | 36.7% |
+| 50% (4,251) | 85.1% | 60.5% |
+| 100% (8,502) | 88.6% | 80.8% |
 
 ### Error Analysis
 
-*Summary saved to `results/error_analysis.json` after running `python src/analyze.py`.*
+Out of 3,080 test examples:
+- **2,631** both models got right
+- **185** both models got wrong (genuinely hard examples)
+- **135** only the baseline got wrong (transformer improvement)
+- **129** only the transformer got wrong (transformer regression)
 
-Key questions answered:
-- Which intents are hardest for each model?
-- Which intent pairs get confused most often, and why?
-- Does the transformer fix the baseline's mistakes, or make different ones?
+The transformer's net improvement over the baseline is just **6 examples** — they make different mistakes on different intents, but at roughly the same rate. The errors both models share tend to involve overlapping intents (e.g., `card_not_working` vs. `card_acceptance`) and very short, ambiguous queries.
 
 ## Reproducibility
 

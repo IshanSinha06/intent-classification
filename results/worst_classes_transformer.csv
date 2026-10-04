@@ -1,0 +1,11 @@
+intent,f1,precision,recall,support
+virtual_card_not_working,0.4,1.0,0.25,40
+why_verify_identity,0.6571,0.7667,0.575,40
+balance_not_updated_after_bank_transfer,0.725,0.725,0.725,40
+getting_virtual_card,0.7429,0.6,0.975,40
+verify_my_identity,0.764,0.6939,0.85,40
+topping_up_by_card,0.7765,0.7333,0.825,40
+get_disposable_virtual_card,0.7857,0.75,0.825,40
+reverted_card_payment?,0.8095,0.7727,0.85,40
+card_acceptance,0.8169,0.9355,0.725,40
+direct_debit_payment_not_recognised,0.8219,0.9091,0.75,40

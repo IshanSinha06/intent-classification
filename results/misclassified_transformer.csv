@@ -1,0 +1,51 @@
+text,true_intent,predicted_intent,text_length
+Do these virtual cards have any caps on using them?,disposable_card_limits,getting_virtual_card,10
+I cannot find my credit card.,lost_or_stolen_card,topping_up_by_card,6
+Can I add funds to the card directly from my bank account?,transfer_into_account,topping_up_by_card,12
+I made an error in payment yesterday and I need it fixed asap because it's for my rent tomorrow.,cancel_transfer,transfer_not_received_by_recipient,19
+What do I do if my virtual card won't work.,virtual_card_not_working,getting_virtual_card,10
+What happens if a merchant doesn't accept a payment?,reverted_card_payment?,declined_card_payment,9
+Can I be topped up once I hit a certain balance?,automatic_top_up,pending_top_up,11
+Where's accounting for my cash withdrawal?,pending_cash_withdrawal,cash_withdrawal_not_recognised,6
+Why is my virtual card is being declined?,virtual_card_not_working,getting_virtual_card,8
+What methods can I use to add money to my account?,transfer_into_account,supported_cards_and_currencies,11
+Can i get a throw away card,get_disposable_virtual_card,order_physical_card,7
+"There must be an issue, why has my card been cancelled?",reverted_card_payment?,declined_card_payment,11
+Why is my disposable virtual card being denied?,virtual_card_not_working,get_disposable_virtual_card,8
+If I make a top-up are there charges applied?,top_up_by_bank_transfer_charge,top_up_by_card_charge,9
+Can I use my card for payment all over the world?,card_acceptance,country_support,11
+Will my transfer immediately show up in my account?,transfer_timing,balance_not_updated_after_bank_transfer,9
+The NFC payment wouldn't work on the bus today. Help?,contactless_not_working,request_refund,10
+"I am waiting patiently for a week now for the seller to get back to me and there has been no response, could you please help me further with getting my money back.  Thank you.",Refund_not_showing_up,reverted_card_payment?,35
+Why is my debit card being declined when I have money?,declined_card_payment,direct_debit_payment_not_recognised,11
+Can I dispute a payment even if I notice it several weeks after it was made?,direct_debit_payment_not_recognised,card_payment_not_recognised,16
+Why am I being charged more ?,card_payment_wrong_exchange_rate,card_payment_fee_charged,7
+"I followed the instructions to transfer money using my card, but then the money disappeared and I don't know what happened.",topping_up_by_card,balance_not_updated_after_bank_transfer,21
+I would like to refill my account using SWIFT.,top_up_by_bank_transfer_charge,request_refund,9
+Someone is using my account to do online shopping! Please freeze it asap,compromised_card,edit_personal_details,13
+My transfer is pending.,balance_not_updated_after_bank_transfer,pending_transfer,4
+The app will not let me into my account.,unable_to_verify_identity,terminate_account,9
+How long does a UK transfer take?,balance_not_updated_after_bank_transfer,transfer_timing,7
+What are your policies for card transfers?,failed_transfer,order_physical_card,7
+"im so mad right now. theres several charges that I think my x boyfriend made on my card. the companys on the website wouldn't refund me my money, they told me to contact my bank. DO something please.",direct_debit_payment_not_recognised,card_payment_not_recognised,38
+Someone has taken my money and I don't know who,direct_debit_payment_not_recognised,cash_withdrawal_not_recognised,10
+My card is being declined online. Could you tell me what might be broken or wrong with the account?,declined_transfer,declined_card_payment,19
+What stores can I sue my card?,card_acceptance,cancel_transfer,7
+I think my child used my card while I wasn't home.,compromised_card,age_limit,11
+I've tried numerous times to submit a transfer of funds. Why isn't it going through?,beneficiary_not_allowed,failed_transfer,15
+how many transactions can i make with a disposable card,get_disposable_virtual_card,disposable_card_limits,10
+how do i get a virtual card for one time use,get_disposable_virtual_card,getting_virtual_card,11
+What can I pay with? Does cash work?,top_up_by_cash_or_cheque,cash_withdrawal_charge,8
+Is it a good time to exchange?,exchange_rate,exchange_via_app,7
+Is there any limit to the amount I can add to a card at a time?,top_up_limits,getting_spare_card,16
+I was charged on my account that shouldn't be there.,direct_debit_payment_not_recognised,card_payment_fee_charged,10
+It will be fine to use at any establishment that accepts Mastercard.,card_acceptance,visa_or_mastercard,12
+Is there any place I cannot use my card?,card_acceptance,card_not_working,9
+Can I get a copy of the card by email?,getting_virtual_card,card_linking,10
+"I transferred money yesterday, but it still isn't available?",pending_transfer,balance_not_updated_after_bank_transfer,9
+I'm just wondering when my card will get here.,card_delivery_estimate,card_arrival,9
+Why is my transfer not done yet?,pending_transfer,transfer_not_received_by_recipient,7
+Good morning. I tried to make a purchase with my credit card last night and again this morning. Both times it was declined. Can you investigate?,declined_transfer,declined_card_payment,26
+"When I travel, what will it cost to switch for my currency?",exchange_charge,exchange_via_app,12
+Can I space out how often money is transferred along my travels?,automatic_top_up,receiving_money,12
+I have paid money into my account but it doesn't show.,balance_not_updated_after_cheque_or_cash_deposit,reverted_card_payment?,11

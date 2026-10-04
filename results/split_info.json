@@ -1,0 +1,8 @@
+{
+  "num_classes": 77,
+  "train_size": 8502,
+  "val_size": 1501,
+  "test_size": 3080,
+  "val_fraction": 0.15,
+  "random_seed": 42
+}

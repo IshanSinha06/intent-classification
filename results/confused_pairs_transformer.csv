@@ -1,0 +1,11 @@
+true_intent,predicted_intent,count
+virtual_card_not_working,getting_virtual_card,18
+why_verify_identity,verify_my_identity,14
+virtual_card_not_working,get_disposable_virtual_card,9
+card_swallowed,declined_cash_withdrawal,6
+declined_transfer,declined_card_payment,6
+reverted_card_payment?,declined_card_payment,5
+get_disposable_virtual_card,getting_virtual_card,5
+card_delivery_estimate,card_arrival,5
+verify_my_identity,why_verify_identity,5
+balance_not_updated_after_bank_transfer,transfer_timing,4

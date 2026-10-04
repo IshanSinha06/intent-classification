@@ -1,0 +1,11 @@
+true_intent,predicted_intent,count
+why_verify_identity,unable_to_verify_identity,5
+top_up_failed,top_up_reverted,5
+virtual_card_not_working,get_disposable_virtual_card,5
+why_verify_identity,verify_my_identity,5
+request_refund,Refund_not_showing_up,4
+card_acceptance,card_not_working,4
+unable_to_verify_identity,verify_my_identity,4
+fiat_currency_support,exchange_via_app,4
+card_arrival,card_delivery_estimate,4
+balance_not_updated_after_bank_transfer,transfer_not_received_by_recipient,4

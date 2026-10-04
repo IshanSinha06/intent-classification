@@ -35,33 +35,49 @@ RESULTS_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "results"
 
 def load_banking77():
     """
-    Load the Banking77 dataset from Hugging Face Hub.
+    Load the Banking77 dataset from the original GitHub CSVs.
 
-    Returns the raw dataset dict with 'train' and 'test' splits.
+    The PolyAI/banking77 HuggingFace repo uses a legacy loading script that
+    datasets 3.x+ no longer supports, so we load the CSVs directly from the
+    PolyAI GitHub repository instead.
+
+    The CSV columns are 'text' (query string) and 'category' (intent name string).
+    We convert the category strings to integer label ids using a sorted label list.
+
+    Returns:
+        dict with keys:
+            "train_texts"  : List[str]  — raw training query strings.
+            "train_labels" : List[int]  — integer label ids for training queries.
+            "test_texts"   : List[str]  — raw test query strings.
+            "test_labels"  : List[int]  — integer label ids for test queries.
+            "label_names"  : List[str]  — 77 intent names, sorted alphabetically.
 
     Called by:
       - get_splits() in this file to build train/val/test data.
       - Can be called standalone for quick exploration.
     """
-    dataset = load_dataset("PolyAI/banking77")
-    return dataset
+    _TRAIN_URL = (
+        "https://raw.githubusercontent.com/PolyAI-LDN/"
+        "task-specific-datasets/master/banking_data/train.csv"
+    )
+    _TEST_URL = (
+        "https://raw.githubusercontent.com/PolyAI-LDN/"
+        "task-specific-datasets/master/banking_data/test.csv"
+    )
 
+    dataset = load_dataset("csv", data_files={"train": _TRAIN_URL, "test": _TEST_URL})
 
-def get_label_names(dataset):
-    """
-    Extract the human-readable intent label names from the dataset.
+    # Build a sorted label vocabulary and map category strings to integer ids.
+    all_categories = sorted(set(list(dataset["train"]["category"]) + list(dataset["test"]["category"])))
+    cat_to_id = {cat: i for i, cat in enumerate(all_categories)}
 
-    Args:
-        dataset: The Hugging Face dataset dict returned by load_banking77().
-
-    Returns:
-        List[str]: 77 intent label strings, indexed by their integer label id.
-
-    Called by:
-      - get_splits() in this file, to return label names alongside the data.
-      - src/analyze.py : to map predicted label ids back to human-readable names.
-    """
-    return dataset["train"].features["label"].names
+    return {
+        "train_texts": list(dataset["train"]["text"]),
+        "train_labels": [cat_to_id[c] for c in dataset["train"]["category"]],
+        "test_texts": list(dataset["test"]["text"]),
+        "test_labels": [cat_to_id[c] for c in dataset["test"]["category"]],
+        "label_names": all_categories,
+    }
 
 
 def get_splits(seed=RANDOM_SEED):
@@ -89,14 +105,13 @@ def get_splits(seed=RANDOM_SEED):
       - src/finetune.py   : to train and evaluate DistilBERT.
       - src/analyze.py    : to run error analysis and the learning-curve experiment.
     """
-    dataset = load_banking77()
-    label_names = get_label_names(dataset)
+    raw = load_banking77()
+    label_names = raw["label_names"]
 
-    # Extract raw text and labels from the Hugging Face dataset splits.
-    all_train_texts = dataset["train"]["text"]
-    all_train_labels = dataset["train"]["label"]
-    test_texts = dataset["test"]["text"]
-    test_labels = dataset["test"]["label"]
+    all_train_texts = raw["train_texts"]
+    all_train_labels = raw["train_labels"]
+    test_texts = raw["test_texts"]
+    test_labels = raw["test_labels"]
 
     # Stratified split: keeps class proportions consistent in train and val.
     train_texts, val_texts, train_labels, val_labels = train_test_split(

@@ -1,0 +1,276 @@
+{
+  "baseline": {
+    "total_errors": 320,
+    "error_rate": 0.1039,
+    "error_categories": {
+      "overlapping_intent": 30,
+      "other": 16,
+      "short_query": 4
+    },
+    "worst_classes": [
+      {
+        "intent": "balance_not_updated_after_bank_transfer",
+        "f1": 0.747,
+        "precision": 0.7209,
+        "recall": 0.775,
+        "support": 40
+      },
+      {
+        "intent": "pending_transfer",
+        "f1": 0.7654,
+        "precision": 0.7561,
+        "recall": 0.775,
+        "support": 40
+      },
+      {
+        "intent": "top_up_failed",
+        "f1": 0.775,
+        "precision": 0.775,
+        "recall": 0.775,
+        "support": 40
+      },
+      {
+        "intent": "card_not_working",
+        "f1": 0.7872,
+        "precision": 0.6852,
+        "recall": 0.925,
+        "support": 40
+      },
+      {
+        "intent": "virtual_card_not_working",
+        "f1": 0.7941,
+        "precision": 0.9643,
+        "recall": 0.675,
+        "support": 40
+      },
+      {
+        "intent": "why_verify_identity",
+        "f1": 0.8,
+        "precision": 0.8571,
+        "recall": 0.75,
+        "support": 40
+      },
+      {
+        "intent": "verify_my_identity",
+        "f1": 0.8049,
+        "precision": 0.7857,
+        "recall": 0.825,
+        "support": 40
+      },
+      {
+        "intent": "top_up_reverted",
+        "f1": 0.8148,
+        "precision": 0.8049,
+        "recall": 0.825,
+        "support": 40
+      },
+      {
+        "intent": "card_payment_not_recognised",
+        "f1": 0.8193,
+        "precision": 0.7907,
+        "recall": 0.85,
+        "support": 40
+      },
+      {
+        "intent": "declined_card_payment",
+        "f1": 0.8222,
+        "precision": 0.74,
+        "recall": 0.925,
+        "support": 40
+      }
+    ],
+    "confused_pairs": [
+      {
+        "true_intent": "why_verify_identity",
+        "predicted_intent": "unable_to_verify_identity",
+        "count": 5
+      },
+      {
+        "true_intent": "top_up_failed",
+        "predicted_intent": "top_up_reverted",
+        "count": 5
+      },
+      {
+        "true_intent": "virtual_card_not_working",
+        "predicted_intent": "get_disposable_virtual_card",
+        "count": 5
+      },
+      {
+        "true_intent": "why_verify_identity",
+        "predicted_intent": "verify_my_identity",
+        "count": 5
+      },
+      {
+        "true_intent": "request_refund",
+        "predicted_intent": "Refund_not_showing_up",
+        "count": 4
+      },
+      {
+        "true_intent": "card_acceptance",
+        "predicted_intent": "card_not_working",
+        "count": 4
+      },
+      {
+        "true_intent": "unable_to_verify_identity",
+        "predicted_intent": "verify_my_identity",
+        "count": 4
+      },
+      {
+        "true_intent": "fiat_currency_support",
+        "predicted_intent": "exchange_via_app",
+        "count": 4
+      },
+      {
+        "true_intent": "card_arrival",
+        "predicted_intent": "card_delivery_estimate",
+        "count": 4
+      },
+      {
+        "true_intent": "balance_not_updated_after_bank_transfer",
+        "predicted_intent": "transfer_not_received_by_recipient",
+        "count": 4
+      }
+    ]
+  },
+  "transformer": {
+    "total_errors": 314,
+    "error_rate": 0.1019,
+    "error_categories": {
+      "overlapping_intent": 32,
+      "other": 17,
+      "short_query": 1
+    },
+    "worst_classes": [
+      {
+        "intent": "virtual_card_not_working",
+        "f1": 0.4,
+        "precision": 1.0,
+        "recall": 0.25,
+        "support": 40
+      },
+      {
+        "intent": "why_verify_identity",
+        "f1": 0.6571,
+        "precision": 0.7667,
+        "recall": 0.575,
+        "support": 40
+      },
+      {
+        "intent": "balance_not_updated_after_bank_transfer",
+        "f1": 0.725,
+        "precision": 0.725,
+        "recall": 0.725,
+        "support": 40
+      },
+      {
+        "intent": "getting_virtual_card",
+        "f1": 0.7429,
+        "precision": 0.6,
+        "recall": 0.975,
+        "support": 40
+      },
+      {
+        "intent": "verify_my_identity",
+        "f1": 0.764,
+        "precision": 0.6939,
+        "recall": 0.85,
+        "support": 40
+      },
+      {
+        "intent": "topping_up_by_card",
+        "f1": 0.7765,
+        "precision": 0.7333,
+        "recall": 0.825,
+        "support": 40
+      },
+      {
+        "intent": "get_disposable_virtual_card",
+        "f1": 0.7857,
+        "precision": 0.75,
+        "recall": 0.825,
+        "support": 40
+      },
+      {
+        "intent": "reverted_card_payment?",
+        "f1": 0.8095,
+        "precision": 0.7727,
+        "recall": 0.85,
+        "support": 40
+      },
+      {
+        "intent": "card_acceptance",
+        "f1": 0.8169,
+        "precision": 0.9355,
+        "recall": 0.725,
+        "support": 40
+      },
+      {
+        "intent": "direct_debit_payment_not_recognised",
+        "f1": 0.8219,
+        "precision": 0.9091,
+        "recall": 0.75,
+        "support": 40
+      }
+    ],
+    "confused_pairs": [
+      {
+        "true_intent": "virtual_card_not_working",
+        "predicted_intent": "getting_virtual_card",
+        "count": 18
+      },
+      {
+        "true_intent": "why_verify_identity",
+        "predicted_intent": "verify_my_identity",
+        "count": 14
+      },
+      {
+        "true_intent": "virtual_card_not_working",
+        "predicted_intent": "get_disposable_virtual_card",
+        "count": 9
+      },
+      {
+        "true_intent": "card_swallowed",
+        "predicted_intent": "declined_cash_withdrawal",
+        "count": 6
+      },
+      {
+        "true_intent": "declined_transfer",
+        "predicted_intent": "declined_card_payment",
+        "count": 6
+      },
+      {
+        "true_intent": "reverted_card_payment?",
+        "predicted_intent": "declined_card_payment",
+        "count": 5
+      },
+      {
+        "true_intent": "get_disposable_virtual_card",
+        "predicted_intent": "getting_virtual_card",
+        "count": 5
+      },
+      {
+        "true_intent": "card_delivery_estimate",
+        "predicted_intent": "card_arrival",
+        "count": 5
+      },
+      {
+        "true_intent": "verify_my_identity",
+        "predicted_intent": "why_verify_identity",
+        "count": 5
+      },
+      {
+        "true_intent": "balance_not_updated_after_bank_transfer",
+        "predicted_intent": "transfer_timing",
+        "count": 4
+      }
+    ]
+  },
+  "comparison": {
+    "both_correct": 2631,
+    "both_wrong": 185,
+    "only_baseline_wrong": 135,
+    "only_transformer_wrong": 129,
+    "transformer_net_improvement": 6,
+    "total_examples": 3080
+  }
+}

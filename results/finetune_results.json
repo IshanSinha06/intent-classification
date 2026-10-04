@@ -1,0 +1,35 @@
+{
+  "model": "distilbert-base-uncased",
+  "epochs": 5,
+  "batch_size": 32,
+  "learning_rate": 3e-05,
+  "seeds": [
+    42,
+    123,
+    456
+  ],
+  "per_seed": [
+    {
+      "seed": 42,
+      "test_accuracy": 0.9039,
+      "test_macro_f1": 0.9036,
+      "best_epoch": 5
+    },
+    {
+      "seed": 123,
+      "test_accuracy": 0.9026,
+      "test_macro_f1": 0.9007,
+      "best_epoch": 5
+    },
+    {
+      "seed": 456,
+      "test_accuracy": 0.8981,
+      "test_macro_f1": 0.8963,
+      "best_epoch": 5
+    }
+  ],
+  "mean_test_accuracy": 0.9015,
+  "std_test_accuracy": 0.0025,
+  "mean_test_macro_f1": 0.9002,
+  "std_test_macro_f1": 0.003
+}

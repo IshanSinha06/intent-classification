@@ -1,0 +1,11 @@
+intent,f1,precision,recall,support
+balance_not_updated_after_bank_transfer,0.747,0.7209,0.775,40
+pending_transfer,0.7654,0.7561,0.775,40
+top_up_failed,0.775,0.775,0.775,40
+card_not_working,0.7872,0.6852,0.925,40
+virtual_card_not_working,0.7941,0.9643,0.675,40
+why_verify_identity,0.8,0.8571,0.75,40
+verify_my_identity,0.8049,0.7857,0.825,40
+top_up_reverted,0.8148,0.8049,0.825,40
+card_payment_not_recognised,0.8193,0.7907,0.85,40
+declined_card_payment,0.8222,0.74,0.925,40
